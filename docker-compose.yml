@@ -1,0 +1,17 @@
+services:
+  inference:
+    container_name: gpu_test_llamacpp
+    image: ghcr.io/ggerganov/llama.cpp:server-cuda
+    command: "-m models/Phi-3.1-mini-4k-instruct-Q6_K_L.gguf --host 0.0.0.0 --port 8000 --n-gpu-layers 99"
+    restart: unless-stopped
+    ports:
+      - "80:8000"
+    volumes:
+      - ./models:/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              driver: nvidia
+              count: all
