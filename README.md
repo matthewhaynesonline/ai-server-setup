@@ -1,6 +1,6 @@
 # AI and ML Server Setup
 
-This is the code that accompanies the [AI Server from Scratch in AWS video]().
+This is the code that accompanies the [AI Server from Scratch in AWS video](https://www.youtube.com/watch?v=N_KFYqvEZvU).
 
 This project walks through setting up an AWS EC2 instance optimized for generative AI and machine learning tasks, using NVIDIA and Docker on Ubuntu.
 
