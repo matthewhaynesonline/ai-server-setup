@@ -59,7 +59,7 @@ curl -O -L "https://huggingface.co/bartowski/Phi-3.1-mini-4k-instruct-GGUF/resol
 - [Ubuntu NVIDIA Driver Docs](https://ubuntu.com/server/docs/nvidia-drivers-installation)
 - [NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
   - [CUDA GPU Compatibility List](https://developer.nvidia.com/cuda-gpus)
-- [NVIDIA NVIDIA Container Toolkit Guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+- [NVIDIA Container Toolkit Guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 - [Elasticsearch / Opensearch virtual memory](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html)
   - [https://stackoverflow.com/q/51445846](https://stackoverflow.com/q/51445846)
 - [llama.cpp](https://github.com/ggerganov/llama.cpp)
