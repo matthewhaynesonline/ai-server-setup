@@ -8,13 +8,13 @@ packer {
 }
 
 source "amazon-ebs" "ubuntu_ami" {
-  ami_name      = "ubuntu-with-docker-and-nvidia-ami"
+  ami_name      = "ubuntu-with-docker-and-nvidia-560-cuda-12-6-ami"
   region        = "us-east-2"
   instance_type = "g4dn.xlarge"
 
   source_ami_filter {
     filters = {
-      name             = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20240701.1"
+      name             = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20240801"
       root-device-type = "ebs"
       architecture     = "x86_64"
     }
@@ -37,7 +37,7 @@ source "amazon-ebs" "ubuntu_ami" {
 }
 
 build {
-  name    = "ubuntu_with_docker_and_nvidia"
+  name    = "ubuntu_with_docker_and_nvidia_560_cuda_12_6"
   sources = ["source.amazon-ebs.ubuntu_ami"]
 
   # Installing Required Packages
@@ -66,6 +66,14 @@ build {
     ]
   }
 
+  # Add user to docker group
+  # https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+  provisioner "shell" {
+    inline = [
+      "sudo usermod -aG docker $USER",
+    ]
+  }
+
   # Installing Ubuntu Drivers Tool
   provisioner "shell" {
     inline = [
@@ -82,7 +90,8 @@ build {
       "wget https://developer.download.nvidia.com/compute/cuda/repos/$ubuntu_version/cuda-keyring_1.1-1_all.deb",
       "sudo dpkg -i cuda-keyring_1.1-1_all.deb",
       "sudo apt-get update",
-      "sudo apt-get install -y nvidia-cuda-toolkit",
+      "sudo apt-get install -y cuda-toolkit",
+      "echo -e '# Add NVIDIA CUDA to path\nexport PATH=/usr/local/cuda-12.6/bin$${PATH:+:$${PATH}}' >> ~/.profile"
     ]
   }
 
@@ -114,6 +123,14 @@ build {
     ]
   }
 
+  # Update existing packages
+  provisioner "shell" {
+    inline = [
+      "sudo apt-get upgrade -y",
+      "sudo apt autoremove -y"
+    ]
+  }
+
   # Reboot
   provisioner "shell" {
     expect_disconnect = true
@@ -127,7 +144,7 @@ build {
   # Running this last seemed to work best
   provisioner "shell" {
     inline = [
-      "sudo ubuntu-drivers install nvidia:550",
+      "sudo ubuntu-drivers install nvidia:560",
     ]
   }
 }
