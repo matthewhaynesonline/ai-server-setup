@@ -32,6 +32,12 @@ Here are the reason this guide uses an EC2:
 
 ### Setup / Instructions / Notes
 
+#### NVIDIA Drivers / CUDA
+
+If you run into issue like `RuntimeError: No CUDA GPUs are available` or `Failed to initialize NVML: Driver/library version mismatch` just try rebooting.
+
+[https://stackoverflow.com/a/43023000](https://stackoverflow.com/a/43023000)
+
 #### AWS
 
 **Make sure to create an aws.env file with your settings.** `cd aws; cp aws.env.example aws.env`
